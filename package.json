@@ -4,8 +4,8 @@
   "description": "Self estimated system",
   "main": "index.js",
   "scripts": {
-    "start:watch": "nodemon index.js",
-    "start": "node index.js",
+    "start:watch": "nodemon",
+    "start": "node -r esm src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/bmashall/estimate-gql#readme",
   "dependencies": {
     "apollo-server": "^2.6.7",
+    "esm": "^3.2.25",
     "graphql": "^14.4.1",
     "nodemon": "^1.19.1"
   }
