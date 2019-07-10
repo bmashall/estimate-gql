@@ -1,49 +1,14 @@
 import { ApolloServer, gql } from 'apollo-server';
+import {resolvers, typeDefs} from './graphQL'
+import {connect} from './config'
+// import {Estimation} from '../src/models/estimations'
 
-// This is a (sample) collection of books we'll be able to query
-// the GraphQL server for.  A more complete example might fetch
-// from an existing data source like a REST API or database.
-const estimations = [{
-    id: 3,
-    type: "task",
-    skills: ["Skill1","Skill2","Skill3"]
-}]
+// connect to mongodb 
+connect()
 
-// Type definitions define the "shape" of your data and specify
-// which ways the data can be fetched from the GraphQL server.
-const typeDefs = gql`
-  # Comments in GraphQL are defined with the hash (#) symbol.
 
-  # This "Book" type can be used in other type declarations.
-  type Estimation {
-    title: String
-    id: ID
-    skills: [String]
-  }
+// Estimation.create({title: 'task', skills:["shir","bar"], id:"2543"}).then((...args)=>console.log(...args))
 
-  type Skill {
-    id: String
-    title: String
-  }
-
-  # The "Query" type is the root of all GraphQL queries.
-  # (A "Mutation" type will be covered later on.)
-  type Query {
-    estimations: [Estimation]
-  }
-`;
-
-// Resolvers define the technique for fetching the types in the
-// schema.  We'll retrieve books from the "books" array above.
-const resolvers = {
-  Query: {
-    estimations: () => estimations,
-  },
-};
-
-// In the most basic sense, the ApolloServer can be started
-// by passing type definitions (typeDefs) and the resolvers
-// responsible for fetching the data for those types.
 const server = new ApolloServer({ typeDefs, resolvers });
 
 // This `listen` method launches a web-server.  Existing apps
